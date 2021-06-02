@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, Response
+from typing import Optional
 
 import api
 
@@ -34,6 +35,9 @@ async def middleware(request: Request, call_next):
     return response
 
 
-@app.get('/{url}')
-async def getAPI(url):
-    return api.main(url)
+@app.get('/')
+async def getAPI(url: Optional[str] = None):
+    if url:
+        return api.main(url)
+    else:
+        return {'message': 'hello, world'}
