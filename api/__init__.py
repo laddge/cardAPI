@@ -10,22 +10,22 @@ def main(url):
         print(e)
         return {}
     title = (
-        html.xpath('.//meta[@property="og:title"]/@content')[0]
+        html.xpath('.//meta[@property="og:title"]/@content')[-1]
         if html.xpath('.//meta[@property="og:title"]/@content')
         else ''
     )
     description = (
-        html.xpath('.//meta[@property="og:description"]/@content')[0]
+        html.xpath('.//meta[@property="og:description"]/@content')[-1]
         if html.xpath('.//meta[@property="og:description"]/@content')
         else ''
     )
     site_name = (
-        html.xpath('.//meta[@property="og:site_name"]/@content')[0]
+        html.xpath('.//meta[@property="og:site_name"]/@content')[-1]
         if html.xpath('.//meta[@property="og:site_name"]/@content')
         else ''
     )
     image = (
-        html.xpath('.//meta[@property="og:image"]/@content')[0]
+        html.xpath('.//meta[@property="og:image"]/@content')[-1]
         if html.xpath('.//meta[@property="og:image"]/@content')
         else ''
     )
