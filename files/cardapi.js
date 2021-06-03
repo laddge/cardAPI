@@ -1,3 +1,8 @@
+/*!
+  * cardAPI (https://github.com/laddge/cardAPI)
+  * Copyright 2021 Laddge
+  * Licensed under MIT (https://github.com/laddge/cardAPI/blob/master/LICENSE)
+  */
 function CardAPI(className, template, override = true) {
     this.load = function () {
         for (const elem of document.getElementsByClassName(className)) {
