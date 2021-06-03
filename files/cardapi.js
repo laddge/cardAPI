@@ -1,5 +1,4 @@
 function CardAPI(className, template, override = true) {
-    'use strict';
     this.load = function() {
         for (const elem of document.getElementsByClassName(className)) {
             if (elem.href) {
