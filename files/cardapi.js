@@ -10,6 +10,7 @@ function CardAPI(className, template, override = true) {
                     .then(json => {
                         if (Object.keys(json).length) {
                             const rendered = template
+                                .replace(/{{ href }}/g, elem.href)
                                 .replace(/{{ title }}/g, json.title)
                                 .replace(/{{ description }}/g, json.description)
                                 .replace(/{{ site_name }}/g, json.site_name)
