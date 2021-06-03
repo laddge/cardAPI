@@ -1,5 +1,5 @@
 function CardAPI(className, template, override = true) {
-    this.load = function() {
+    this.load = function () {
         for (const elem of document.getElementsByClassName(className)) {
             if (elem.href) {
                 const api = 'https://cardapi.laddge.tk/?url=' + encodeURI(elem.href);
@@ -8,12 +8,12 @@ function CardAPI(className, template, override = true) {
                         return data.json();
                     })
                     .then(json => {
-                        if (data != {}) {
+                        if (json != {}) {
                             const rendered = template
-                                .replace(/{{ title }}/g, data.title)
-                                .replace(/{{ description }}/g, data.description)
-                                .replace(/{{ site_name }}/g, data.site_name)
-                                .replace(/{{ image }}/g, data.image);
+                                .replace(/{{ title }}/g, json.title)
+                                .replace(/{{ description }}/g, json.description)
+                                .replace(/{{ site_name }}/g, json.site_name)
+                                .replace(/{{ image }}/g, json.image);
                             if (override) {
                                 elem.outerHTML = rendered;
                             } else {
@@ -23,5 +23,5 @@ function CardAPI(className, template, override = true) {
                     });
             }
         }
-    }
+    };
 }
