@@ -10,21 +10,21 @@ def main(url):
         print(e)
         return {}
     if html.xpath('.//meta[@property="og:title"]/@content'):
-        title = html.xpath('.//meta[@property="og:image"]/@content')[-1]
+        title = html.xpath('.//meta[@property="og:title"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:title"]/@content'):
         title = html.xpath('.//meta[@property="twitter:title"]/@content')[-1]
     else:
         title = ''
 
     if html.xpath('.//meta[@property="og:description"]/@content'):
-        description = html.xpath('.//meta[@property="og:image"]/@content')[-1]
+        description = html.xpath('.//meta[@property="og:description"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:description"]/@content'):
         description = html.xpath('.//meta[@property="twitter:description"]/@content')[-1]
     else:
         description = ''
 
     if html.xpath('.//meta[@property="og:site_name"]/@content'):
-        site_name = html.xpath('.//meta[@property="og:image"]/@content')[-1]
+        site_name = html.xpath('.//meta[@property="og:site_name"]/@content')[-1]
     else:
         site_name = ''
 
