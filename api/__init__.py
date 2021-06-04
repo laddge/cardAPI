@@ -1,4 +1,5 @@
 from urllib import request
+from urllib.parse import urljoin
 import lxml.html
 
 
@@ -14,6 +15,8 @@ def main(url):
         title = html.xpath('.//meta[@property="og:title"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:title"]/@content'):
         title = html.xpath('.//meta[@property="twitter:title"]/@content')[-1]
+    elif html.xpath('.//title'):
+        title = html.xpath('.//title')[0]
     else:
         title = ''
 
@@ -21,6 +24,8 @@ def main(url):
         description = html.xpath('.//meta[@property="og:description"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:description"]/@content'):
         description = html.xpath('.//meta[@property="twitter:description"]/@content')[-1]
+    elif html.xpath('.//meta[@name="description"]/@content'):
+        description = html.xpath('.//meta[@name="description"]/@content')[0]
     else:
         description = ''
 
@@ -33,6 +38,15 @@ def main(url):
         image = html.xpath('.//meta[@property="og:image"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:image"]/@content'):
         image = html.xpath('.//meta[@property="twitter:image"]/@content')[-1]
+    elif html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'):
+        size = max(html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'))
+        image = html.xpath(
+            './/link[(@rel="apple-touch-icon" or @rel="icon") and @sizes='
+            + size
+            + ']/@href'
+        )[0]
+    elif html.xpath('.//link[@rel="shortcut icon"]/@href'):
+        image = html.xpath('.//link[@rel="shortcut icon"]/@href')[0]
     else:
         image = ''
 
@@ -41,7 +55,7 @@ def main(url):
             "title": title,
             "description": description,
             "site_name": site_name,
-            "image": image,
+            "image": urljoin(url, image),
         }
     else:
         return {}
