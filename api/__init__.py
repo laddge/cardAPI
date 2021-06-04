@@ -9,6 +9,7 @@ def main(url):
     except Exception as e:
         print(e)
         return {}
+
     if html.xpath('.//meta[@property="og:title"]/@content'):
         title = html.xpath('.//meta[@property="og:title"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:title"]/@content'):
@@ -35,9 +36,12 @@ def main(url):
     else:
         image = ''
 
-    return {
-        "title": title,
-        "description": description,
-        "site_name": site_name,
-        "image": image,
-    }
+    if any([title, description, site_name, image]):
+        return {
+            "title": title,
+            "description": description,
+            "site_name": site_name,
+            "image": image,
+        }
+    else:
+        return {}
