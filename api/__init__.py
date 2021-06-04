@@ -15,8 +15,8 @@ def main(url):
         title = html.xpath('.//meta[@property="og:title"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:title"]/@content'):
         title = html.xpath('.//meta[@property="twitter:title"]/@content')[-1]
-    elif html.xpath('.//title'):
-        title = html.xpath('.//title')[0]
+    elif html.xpath('.//title/text()'):
+        title = html.xpath('.//title/text()')[0]
     else:
         title = ''
 
