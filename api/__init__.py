@@ -41,9 +41,9 @@ def main(url):
     elif html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'):
         size = max(html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'))
         image = html.xpath(
-            './/link[(@rel="apple-touch-icon" or @rel="icon") and @sizes='
+            './/link[(@rel="apple-touch-icon" or @rel="icon") and @sizes="'
             + size
-            + ']/@href'
+            + '"]/@href'
         )[0]
     elif html.xpath('.//link[@rel="shortcut icon"]/@href'):
         image = html.xpath('.//link[@rel="shortcut icon"]/@href')[0]
