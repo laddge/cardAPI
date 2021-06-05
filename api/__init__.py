@@ -1,6 +1,7 @@
 from urllib import request
 from urllib.parse import urljoin
 import lxml.html
+import re
 
 
 def main(url):
@@ -15,10 +16,10 @@ def main(url):
         title = html.xpath('.//meta[@property="og:title"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:title"]/@content'):
         title = html.xpath('.//meta[@property="twitter:title"]/@content')[-1]
-    elif html.xpath('.//title/text()'):
-        title = html.xpath('.//title/text()')[0]
+    elif html.xpath(".//title/text()"):
+        title = html.xpath(".//title/text()")[0]
     else:
-        title = ''
+        title = ""
 
     if html.xpath('.//meta[@property="og:description"]/@content'):
         description = html.xpath('.//meta[@property="og:description"]/@content')[-1]
@@ -27,28 +28,35 @@ def main(url):
     elif html.xpath('.//meta[@name="description"]/@content'):
         description = html.xpath('.//meta[@name="description"]/@content')[0]
     else:
-        description = ''
+        description = ""
 
     if html.xpath('.//meta[@property="og:site_name"]/@content'):
         site_name = html.xpath('.//meta[@property="og:site_name"]/@content')[-1]
     else:
-        site_name = ''
+        site_name = ""
 
     if html.xpath('.//meta[@property="og:image"]/@content'):
         image = html.xpath('.//meta[@property="og:image"]/@content')[-1]
     elif html.xpath('.//meta[@property="twitter:image"]/@content'):
         image = html.xpath('.//meta[@property="twitter:image"]/@content')[-1]
     elif html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'):
-        size = max(html.xpath('.//link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'))
+        size = max(
+            [
+                int(re.sub("x.*", "", s))
+                for s in html.xpath(
+                    './/link[@rel="apple-touch-icon" or @rel="icon"]/@sizes'
+                )
+            ]
+        )
         image = html.xpath(
             './/link[(@rel="apple-touch-icon" or @rel="icon") and @sizes="'
-            + size
+            + str(size) + 'x' + str(size)
             + '"]/@href'
         )[0]
     elif html.xpath('.//link[@rel="shortcut icon"]/@href'):
         image = html.xpath('.//link[@rel="shortcut icon"]/@href')[0]
     else:
-        image = ''
+        image = ""
 
     if any([title, description, site_name, image]):
         return {
