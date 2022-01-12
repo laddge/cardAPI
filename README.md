@@ -4,7 +4,7 @@ New Blog Card API
 1. Import JS
 
 ```
-<script type="text/javascript" src="https://cardapi.laddge.tk/files/cardapi.min.js"></script>
+<script type="text/javascript" src="https://cardapi.laddge.net/files/cardapi.min.js"></script>
 ```
 
 2. Create an instance

@@ -7,7 +7,7 @@ function CardAPI(className, template, override = true) {
     this.load = function () {
         for (const elem of document.getElementsByClassName(className)) {
             if (elem.href) {
-                const api = 'https://cardapi.laddge.tk/?url=' + encodeURI(elem.href);
+                const api = 'https://cardapi.laddge.net/?url=' + encodeURI(elem.href);
                 fetch(api)
                     .then(data => {
                         return data.json();
